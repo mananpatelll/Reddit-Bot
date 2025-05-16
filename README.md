@@ -1,4 +1,5 @@
 # Reddit Bot Setup Guide
+
 ## Requirements
 
 * Python 3.7+
@@ -11,7 +12,7 @@
 
    ```bash
    git clone https://github.com/mananpatelll/Reddit-Bot.git
-   cd reddit-bot
+   cd Reddit-Bot
    ```
 
 2. **Install dependencies:**
@@ -20,18 +21,21 @@
    pip install -r requirements.txt
    ```
 
-3. **Open the Python file** (e.g., `main.py`) and fill in your credentials in the respective fields:
+3. **Create a `.env` file in the root directory based on the `.env.example` file:**
 
-   ```python
-   client = OpenAI(api_key="your_openai_key")
+   ```bash
+   cp .env.example .env
+   ```
 
-   reddit = praw.Reddit(
-       client_id="your_client_id",
-       client_secret="your_client_secret",
-       user_agent="your_user_agent",
-       username="your_reddit_username",
-       password="your_reddit_password"
-   )
+   Then open `.env` and fill in your credentials:
+
+   ```env
+   OPENAI_API_KEY=your_openai_key
+   REDDIT_CLIENT_ID=your_client_id
+   REDDIT_CLIENT_SECRET=your_client_secret
+   REDDIT_USER_AGENT=your_user_agent
+   REDDIT_USERNAME=your_reddit_username
+   REDDIT_PASSWORD=your_reddit_password
    ```
 
 4. **Run the bot:**
@@ -40,5 +44,6 @@
    python main.py
    ```
 
+## Notes
 
 * Ensure your Reddit account has API access via [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
