@@ -44,6 +44,5 @@
    python main.py
    ```
 
-## Notes
 
 * Ensure your Reddit account has API access via [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps)
