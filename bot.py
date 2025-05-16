@@ -19,6 +19,11 @@ reddit = praw.Reddit(
     password=os.getenv("REDDIT_PASSWORD")
 )
 
+system_prompt = os.getenv("BOT_SYSTEM_PROMPT")
+if not system_prompt:
+    raise ValueError("BOT_SYSTEM_PROMPT is not set in the environment.")
+
+
 logging.basicConfig(
     filename="reddit_bot.log",
     level=logging.INFO,
@@ -43,13 +48,8 @@ def generate_openai_response(prompt, image_url=None):
         messages = [
             {
                 "role": "system",
-                "content": (
-                    "You are a cool bro who helps people with their fitness, career, and life advice. "
-                    "Your replies are short (1-2 sentences, max_token = 150), funny, and sarcastic sometimes. "
-                    "Sometimes you motivate users, sometimes you demotivate them while still being motivating, "
-                    "and sometimes you're brutally honest to give them a reality check if they're being unrealistic. "
-                    "You can be rude, angry, or kind depending on the situation, but you always deliver advice like a chill, confident bro."
-                )
+                "content": system_prompt
+
             },
             {"role": "user", "content": prompt}
         ]
@@ -101,10 +101,8 @@ for submission in subreddit.stream.submissions(skip_existing=True):
             # Generate a reply using OpenAI
             reply = generate_openai_response(prompt, image_url=image_url)
             if reply == -1:
-                logging.error(f"Error generating response: {e}")
+                logging.error("OpenAI failed to generate a reply.")
                 break
-
-            logging.error(f"Error generating response: {e}")
 
             # Post the reply on Reddit
             submission.reply(reply)
