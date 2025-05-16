@@ -1,2 +1,3 @@
 openai 
 praw
+python-dotenv

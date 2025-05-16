@@ -3,17 +3,22 @@ import base64
 import logging
 import praw
 import time
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 # Initialize OpenAI Client
-client = OpenAI(api_key="")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Reddit Bot Credentials
 reddit = praw.Reddit(
-    client_id="",
-    client_secret="",
-    user_agent="",
-    username="",
-    password=""
+    client_id=os.getenv("REDDIT_CLIENT_ID"),
+    client_secret=os.getenv("REDDIT_CLIENT_SECRET"),
+    user_agent=os.getenv("REDDIT_USER_AGENT"),
+    username=os.getenv("REDDIT_USERNAME"),
+    password=os.getenv("REDDIT_PASSWORD")
 )
+
 logging.basicConfig(
     filename="reddit_bot.log",
     level=logging.INFO,
@@ -21,7 +26,7 @@ logging.basicConfig(
 )
 
 # Subreddits to monitor
-subreddits_to_monitor = ["Fitness_India", "Fitness", "careerguidance"]
+subreddits_to_monitor = ["Fitness", "careerguidance"]  # add subreddits here
 subreddit = reddit.subreddit("+".join(subreddits_to_monitor))
 
 
