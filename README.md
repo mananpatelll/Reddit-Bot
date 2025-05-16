@@ -1,5 +1,4 @@
 # Reddit Bot Setup Guide
-
 ## Requirements
 
 * Python 3.7+
